@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 asgiref==3.11.1
 Django==6.0.3
 sqlparse==0.5.5
 tzdata==2025.3
+=======
+asgiref==3.11.1
+Django==6.0.3
+sqlparse==0.5.5
+tzdata==2025.3
+>>>>>>> 5bd48501490524661776bca42704bc3a758b0c75
