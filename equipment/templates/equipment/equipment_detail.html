@@ -1,0 +1,128 @@
+{% extends 'equipment/base.html' %}
+
+{% block title %}{{ equipment.name }} - Gestion des Équipements{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h1><i class="fas fa-cube"></i> {{ equipment.name }}</h1>
+            <p>Détails complets de l'équipement</p>
+        </div>
+        <div class="col-auto">
+            {% if equipment.status == 'available' %}
+                <span class="badge badge-active" style="font-size: 1.1rem;">
+                    <i class="fas fa-check"></i> Disponible
+                </span>
+            {% elif equipment.status == 'in_use' %}
+                <span class="badge" style="font-size: 1.1rem; background-color: #3498db;">
+                    <i class="fas fa-cog"></i> En utilisation
+                </span>
+            {% elif equipment.status == 'maintenance' %}
+                <span class="badge badge-maintenance" style="font-size: 1.1rem;">
+                    <i class="fas fa-tools"></i> En maintenance
+                </span>
+            {% else %}
+                <span class="badge badge-inactive" style="font-size: 1.1rem;">
+                    <i class="fas fa-times"></i> Inactif
+                </span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle"></i> Informations générales</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="fas fa-cube"></i> Nom de l'équipement</label>
+                        <p class="fs-5" style="color: #2c3e50; font-weight: 600;">{{ equipment.name }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="fas fa-tag"></i> Catégorie</label>
+                        <p class="fs-5">
+                            <span class="badge" style="background-color: #3498db; color: white; font-size: 1rem;">
+                                {{ equipment.category }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="fas fa-calendar"></i> Date d'achat</label>
+                        <p class="fs-5" style="color: #2c3e50;">
+                            {{ equipment.purchase_date|date:"d/m/Y" }}
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="fas fa-check-circle"></i> Statut</label>
+                        <p class="fs-5">
+                            {% if equipment.status == 'available' %}
+                                <span class="badge badge-active" style="font-size: 1rem;">Disponible</span>
+                            {% elif equipment.status == 'in_use' %}
+                                <span class="badge" style="font-size: 1rem; background-color: #3498db;">En utilisation</span>
+                            {% elif equipment.status == 'maintenance' %}
+                                <span class="badge badge-maintenance" style="font-size: 1rem;">En maintenance</span>
+                            {% else %}
+                                <span class="badge badge-inactive" style="font-size: 1rem;">Inactif</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-cogs"></i> Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column gap-2">
+                    <a href="{% url 'equipment_create' %}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Modifier cet équipement
+                    </a>
+                    <a href="{% url 'equipment_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user-check"></i> État</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert mb-0" 
+                    {% if equipment.status == 'available' %}
+                        style="background-color: #d4edda; color: #155724; border-color: #c3e6cb;"
+                    {% elif equipment.status == 'in_use' %}
+                        style="background-color: #cfe2ff; color: #084298; border-color: #b6d4fe;"
+                    {% elif equipment.status == 'maintenance' %}
+                        style="background-color: #fff3cd; color: #856404; border-color: #ffeaa7;"
+                    {% else %}
+                        style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;"
+                    {% endif %}>
+                    <strong>Statut actuel : </strong>
+                    {% if equipment.status == 'available' %}
+                        L'équipement est disponible
+                    {% elif equipment.status == 'in_use' %}
+                        L'équipement est actuellement en utilisation
+                    {% elif equipment.status == 'maintenance' %}
+                        L'équipement est en maintenance
+                    {% else %}
+                        L'équipement est inactif
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
