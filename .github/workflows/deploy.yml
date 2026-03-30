@@ -20,6 +20,7 @@ jobs:
         with:
           python-version: '3.10'  # Adapte à ta version sur PythonAnywhere
 
+  
       # 3. Déployer sur PythonAnywhere via l’action dédiée
       - name: Re-Deploy on PythonAnywhere
         uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
