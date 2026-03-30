@@ -3,21 +3,24 @@ name: Deploy Django to PythonAnywhere
 on:
   push:
     branches:
-      - main  # Vérifiez si votre branche principale s'appelle 'main' ou 'master'
+      - main  # Vérifie si ta branche principale s'appelle bien 'main'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Récupérer ton code
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2. Installer Python (version identique à celle configurée sur PythonAnywhere)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10' # Adaptez à votre version sur PythonAnywhere
+          python-version: '3.10'  # Adapte à ta version sur PythonAnywhere
 
+      # 3. Déployer sur PythonAnywhere via l’action dédiée
       - name: Re-Deploy on PythonAnywhere
         uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
         with:
